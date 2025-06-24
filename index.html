@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plano de Estudos - Língua Portuguesa</title>
+    <style>
+        /* Estilos CSS */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 20px;
+            background-color: #f4f7f6;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 30px auto;
+            background-color: #ffffff;
+            padding: 30px 40px;
+            border-radius: 12px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+            border: 1px solid #e0e0e0;
+        }
+
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 2.2em;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 10px;
+        }
+
+        h2 {
+            color: #34495e;
+            margin-top: 40px;
+            margin-bottom: 20px;
+            font-size: 1.6em;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        h2::before {
+            content: '📚'; /* Ícone antes do título do módulo */
+            font-size: 1.2em;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+            margin-top: 15px;
+        }
+
+        li {
+            background-color: #ecf0f1;
+            padding: 12px 18px;
+            margin-bottom: 8px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            cursor: pointer;
+            position: relative; /* Para a bolinha */
+        }
+
+        li:hover {
+            background-color: #e0e6e7;
+            transform: translateY(-2px);
+        }
+
+        input[type="checkbox"] {
+            margin-right: 15px;
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+            accent-color: #27ae60; /* Cor do checkbox quando marcado */
+        }
+
+        li.completed {
+            background-color: #d4edda; /* Verde claro para itens completos */
+            text-decoration: line-through;
+            color: #555;
+            opacity: 0.8;
+        }
+
+        li.completed::after {
+            content: '✔️'; /* Checkmark visual */
+            position: absolute;
+            right: 15px;
+            font-size: 1.2em;
+            color: #28a745;
+        }
+
+        .module-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+            user-select: none; /* Evita seleção de texto ao clicar */
+        }
+
+        .toggle-icon {
+            font-size: 1.2em;
+            transition: transform 0.2s ease;
+        }
+
+        .module-content {
+            display: block; /* Inicialmente visível */
+            transition: max-height 0.3s ease-out, opacity 0.3s ease-out;
+            overflow: hidden;
+            max-height: 1000px; /* Valor alto para transição suave */
+            opacity: 1;
+        }
+
+        .module-content.hidden {
+            max-height: 0;
+            opacity: 0;
+        }
+
+        .module-header.collapsed .toggle-icon {
+            transform: rotate(-90deg);
+        }
+
+        p.info {
+            text-align: center;
+            margin-top: 50px;
+            font-size: 0.9em;
+            color: #7f8c8d;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .container {
+                margin: 20px auto;
+                padding: 20px 25px;
+            }
+            h1 {
+                font-size: 1.8em;
+            }
+            h2 {
+                font-size: 1.4em;
+            }
+            li {
+                padding: 10px 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Plano de Estudos Interativo - Língua Portuguesa</h1>
+
+        <p class="info">Clique nos tópicos para marcá-los como estudados! Seu progresso é salvo automaticamente no navegador.</p>
+
+        <h2 class="module-header" data-module="modulo1">
+            <span class="toggle-icon">▼</span> Módulo 1: Fundamentos da Linguagem e Vocabulário
+        </h2>
+        <ul class="module-content" id="modulo1-content">
+            <li data-topic-id="M1T1">
+                <input type="checkbox"> Significação de Palavras e Expressões
+            </li>
+            <li data-topic-id="M1T2">
+                <input type="checkbox"> Relações de Sinonímia e de Antonímia
+            </li>
+            <li data-topic-id="M1T3">
+                <input type="checkbox"> Formação de Palavras
+            </li>
+            <li data-topic-id="M1T4">
+                <input type="checkbox"> Elementos de Comunicação
+            </li>
+            <li data-topic-id="M1T5">
+                <input type="checkbox"> Variação Linguística
+            </li>
+        </ul>
+
+        <h2 class="module-header" data-module="modulo2">
+            <span class="toggle-icon">▼</span> Módulo 2: Estrutura da Palavra e Pontuação Essencial
+        </h2>
+        <ul class="module-content" id="modulo2-content">
+            <li data-topic-id="M2T1">
+                <input type="checkbox"> Ortografia
+            </li>
+            <li data-topic-id="M2T2">
+                <input type="checkbox"> Acentuação Gráfica
+            </li>
+            <li data-topic-id="M2T3">
+                <input type="checkbox"> Emprego dos Sinais de Pontuação e sua função no texto
+            </li>
+            <li data-topic-id="M2T4">
+                <input type="checkbox"> Uso da Crase
+            </li>
+        </ul>
+
+        <h2 class="module-header" data-module="modulo3">
+            <span class="toggle-icon">▼</span> Módulo 3: Morfologia: A Essência das Palavras
+        </h2>
+        <ul class="module-content" id="modulo3-content">
+            <li data-topic-id="M3T1">
+                <input type="checkbox"> Morfologia: classes de palavras variáveis e invariáveis e seus empregos no texto
+            </li>
+            <li data-topic-id="M3T2">
+                <input type="checkbox"> Locuções verbais (perífrases verbais)
+            </li>
+        </ul>
+
+        <h2 class="module-header" data-module="modulo4">
+            <span class="toggle-icon">▼</span> Módulo 4: Sintaxe: A Organização das Frases
+        </h2>
+        <ul class="module-content" id="modulo4-content">
+            <li data-topic-id="M4T1">
+                <input type="checkbox"> Sintaxe: relações sintático-semânticas estabelecidas entre orações, períodos ou parágrafos (período simples e período composto por coordenação e subordinação)
+            </li>
+            <li data-topic-id="M4T2">
+                <input type="checkbox"> Concordância verbal e nominal
+            </li>
+            <li data-topic-id="M4T3">
+                <input type="checkbox"> Regência verbal e nominal
+            </li>
+            <li data-topic-id="M4T4">
+                <input type="checkbox"> Colocação pronominal
+            </li>
+            <li data-topic-id="M4T5">
+                <input type="checkbox"> Funções do “que” e do “se”
+            </li>
+        </ul>
+
+        <h2 class="module-header" data-module="modulo5">
+            <span class="toggle-icon">▼</span> Módulo 5: Compreensão Textual e Estilística
+        </h2>
+        <ul class="module-content" id="modulo5-content">
+            <li data-topic-id="M5T1">
+                <input type="checkbox"> Compreensão e interpretação de texto
+            </li>
+            <li data-topic-id="M5T2">
+                <input type="checkbox"> Tipologia e gêneros textuais
+            </li>
+            <li data-topic-id="M5T3">
+                <input type="checkbox"> Figuras de linguagem
+            </li>
+            <li data-topic-id="M5T4">
+                <input type="checkbox"> Elementos de coesão
+            </li>
+            <li data-topic-id="M5T5">
+                <input type="checkbox"> Função textual dos vocábulos
+            </li>
+        </ul>
+
+        <h2 class="module-header" data-module="modulo6">
+            <span class="toggle-icon">▼</span> Módulo 6: Redação Oficial
+        </h2>
+        <ul class="module-content" id="modulo6-content">
+            <li data-topic-id="M6T1">
+                <input type="checkbox"> Redação oficial (Manual da Presidência da República/2018)
+            </li>
+        </ul>
+    </div>
+
+    <script>
+        // JavaScript para interatividade
+        document.addEventListener('DOMContentLoaded', () => {
+            const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+            const moduleHeaders = document.querySelectorAll('.module-header');
+
+            // --- Função para carregar o progresso salvo ---
+            function loadProgress() {
+                checkboxes.forEach(checkbox => {
+                    const topicId = checkbox.closest('li').dataset.topicId;
+                    const isChecked = localStorage.getItem(topicId) === 'true';
+                    checkbox.checked = isChecked;
+                    if (isChecked) {
+                        checkbox.closest('li').classList.add('completed');
+                    }
+                });
+
+                // Carregar estado de módulos (expandido/colapsado)
+                moduleHeaders.forEach(header => {
+                    const moduleId = header.dataset.module;
+                    const isCollapsed = localStorage.getItem(`module-${moduleId}-collapsed`) === 'true';
+                    if (isCollapsed) {
+                        header.classList.add('collapsed');
+                        document.getElementById(`${moduleId}-content`).classList.add('hidden');
+                    } else {
+                         header.classList.remove('collapsed');
+                         document.getElementById(`${moduleId}-content`).classList.remove('hidden');
+                    }
+                });
+            }
+
+            // --- Função para salvar o progresso ---
+            function saveProgress(topicId, isChecked) {
+                localStorage.setItem(topicId, isChecked);
+            }
+
+            // --- Event Listener para checkboxes ---
+            checkboxes.forEach(checkbox => {
+                checkbox.addEventListener('change', (event) => {
+                    const listItem = event.target.closest('li');
+                    const topicId = listItem.dataset.topicId;
+
+                    if (event.target.checked) {
+                        listItem.classList.add('completed');
+                    } else {
+                        listItem.classList.remove('completed');
+                    }
+                    saveProgress(topicId, event.target.checked);
+                });
+            });
+
+            // --- Event Listener para expandir/colapsar módulos ---
+            moduleHeaders.forEach(header => {
+                header.addEventListener('click', () => {
+                    const moduleId = header.dataset.module;
+                    const contentDiv = document.getElementById(`${moduleId}-content`);
+
+                    header.classList.toggle('collapsed');
+                    contentDiv.classList.toggle('hidden');
+
+                    // Salvar o estado do módulo
+                    const isCollapsed = header.classList.contains('collapsed');
+                    localStorage.setItem(`module-${moduleId}-collapsed`, isCollapsed);
+                });
+            });
+
+            // Carrega o progresso ao carregar a página
+            loadProgress();
+        });
+    </script>
+</body>
+</html>
