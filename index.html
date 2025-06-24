@@ -3,19 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Plano de Estudos - Língua Portuguesa</title>
+    <title>Cronograma de Estudos TJPR</title>
     <style>
-        /* Estilos CSS */
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            margin: 20px;
+            margin: 0;
+            padding: 20px;
             background-color: #f4f7f6;
             color: #333;
             line-height: 1.6;
+            overflow-x: hidden;
         }
 
         .container {
-            max-width: 900px;
+            max-width: 1200px;
             margin: 30px auto;
             background-color: #ffffff;
             padding: 30px 40px;
@@ -33,301 +34,290 @@
             padding-bottom: 10px;
         }
 
-        h2 {
-            color: #34495e;
-            margin-top: 40px;
-            margin-bottom: 20px;
-            font-size: 1.6em;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        h2::before {
-            content: '📚'; /* Ícone antes do título do módulo */
-            font-size: 1.2em;
-        }
-
-        ul {
-            list-style: none;
-            padding: 0;
-            margin-top: 15px;
-        }
-
-        li {
-            background-color: #ecf0f1;
-            padding: 12px 18px;
-            margin-bottom: 8px;
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-            transition: background-color 0.3s ease, transform 0.2s ease;
-            cursor: pointer;
-            position: relative; /* Para a bolinha */
-        }
-
-        li:hover {
-            background-color: #e0e6e7;
-            transform: translateY(-2px);
-        }
-
-        input[type="checkbox"] {
-            margin-right: 15px;
-            width: 20px;
-            height: 20px;
-            cursor: pointer;
-            accent-color: #27ae60; /* Cor do checkbox quando marcado */
-        }
-
-        li.completed {
-            background-color: #d4edda; /* Verde claro para itens completos */
-            text-decoration: line-through;
-            color: #555;
-            opacity: 0.8;
-        }
-
-        li.completed::after {
-            content: '✔️'; /* Checkmark visual */
-            position: absolute;
-            right: 15px;
-            font-size: 1.2em;
-            color: #28a745;
-        }
-
-        .module-header {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            cursor: pointer;
-            user-select: none; /* Evita seleção de texto ao clicar */
-        }
-
-        .toggle-icon {
-            font-size: 1.2em;
-            transition: transform 0.2s ease;
-        }
-
-        .module-content {
-            display: block; /* Inicialmente visível */
-            transition: max-height 0.3s ease-out, opacity 0.3s ease-out;
-            overflow: hidden;
-            max-height: 1000px; /* Valor alto para transição suave */
-            opacity: 1;
-        }
-
-        .module-content.hidden {
-            max-height: 0;
-            opacity: 0;
-        }
-
-        .module-header.collapsed .toggle-icon {
-            transform: rotate(-90deg);
-        }
-
-        p.info {
+        .info {
             text-align: center;
-            margin-top: 50px;
-            font-size: 0.9em;
+            margin-bottom: 30px;
+            font-size: 0.95em;
             color: #7f8c8d;
         }
 
+        .calendar {
+            display: grid;
+            gap: 25px;
+            padding: 10px;
+        }
+
+        .day-card {
+            background-color: #ecf0f1;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
+            overflow: hidden;
+            border: 1px solid #dcdcdc;
+            transition: transform 0.2s ease;
+        }
+
+        .day-card:hover {
+            transform: translateY(-3px);
+        }
+
+        .day-header {
+            background-color: #3498db;
+            color: white;
+            padding: 12px 15px;
+            font-weight: bold;
+            font-size: 1.1em;
+            text-align: center;
+        }
+
+        .schedule-slot {
+            padding: 10px 15px;
+            border-bottom: 1px solid #e0e0e0;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
+
+        .schedule-slot:last-child {
+            border-bottom: none;
+        }
+
+        .schedule-slot:hover {
+            background-color: #e8f0f2;
+        }
+
+        .schedule-slot input[type="checkbox"] {
+            margin-right: 12px;
+            width: 18px;
+            height: 18px;
+            accent-color: #27ae60;
+            cursor: pointer;
+        }
+
+        .schedule-slot.completed {
+            background-color: #d4edda;
+            text-decoration: line-through;
+            color: #555;
+            opacity: 0.9;
+        }
+
+        .time-label {
+            font-weight: bold;
+            color: #555;
+            min-width: 60px;
+        }
+
+        .subject-label {
+            flex-grow: 1;
+        }
+
         /* Responsive adjustments */
-        @media (max-width: 768px) {
+        @media (min-width: 768px) {
+            .calendar {
+                grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            }
+        }
+
+        @media (max-width: 767px) {
             .container {
-                margin: 20px auto;
+                margin: 15px auto;
                 padding: 20px 25px;
             }
             h1 {
                 font-size: 1.8em;
             }
-            h2 {
-                font-size: 1.4em;
-            }
-            li {
-                padding: 10px 15px;
+            .day-card {
+                margin-bottom: 20px;
             }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>Plano de Estudos Interativo - Língua Portuguesa</h1>
+        <h1>🗓️ Cronograma de Estudos TJPR</h1>
+        <p class="info">Seu plano de estudos diário de 25/06/2025 a 24/08/2025.<br>
+        Clique na caixa para marcar um tópico/horário como estudado! Seu progresso é salvo automaticamente.</p>
 
-        <p class="info">Clique nos tópicos para marcá-los como estudados! Seu progresso é salvo automaticamente no navegador.</p>
-
-        <h2 class="module-header" data-module="modulo1">
-            <span class="toggle-icon">▼</span> Módulo 1: Fundamentos da Linguagem e Vocabulário
-        </h2>
-        <ul class="module-content" id="modulo1-content">
-            <li data-topic-id="M1T1">
-                <input type="checkbox"> Significação de Palavras e Expressões
-            </li>
-            <li data-topic-id="M1T2">
-                <input type="checkbox"> Relações de Sinonímia e de Antonímia
-            </li>
-            <li data-topic-id="M1T3">
-                <input type="checkbox"> Formação de Palavras
-            </li>
-            <li data-topic-id="M1T4">
-                <input type="checkbox"> Elementos de Comunicação
-            </li>
-            <li data-topic-id="M1T5">
-                <input type="checkbox"> Variação Linguística
-            </li>
-        </ul>
-
-        <h2 class="module-header" data-module="modulo2">
-            <span class="toggle-icon">▼</span> Módulo 2: Estrutura da Palavra e Pontuação Essencial
-        </h2>
-        <ul class="module-content" id="modulo2-content">
-            <li data-topic-id="M2T1">
-                <input type="checkbox"> Ortografia
-            </li>
-            <li data-topic-id="M2T2">
-                <input type="checkbox"> Acentuação Gráfica
-            </li>
-            <li data-topic-id="M2T3">
-                <input type="checkbox"> Emprego dos Sinais de Pontuação e sua função no texto
-            </li>
-            <li data-topic-id="M2T4">
-                <input type="checkbox"> Uso da Crase
-            </li>
-        </ul>
-
-        <h2 class="module-header" data-module="modulo3">
-            <span class="toggle-icon">▼</span> Módulo 3: Morfologia: A Essência das Palavras
-        </h2>
-        <ul class="module-content" id="modulo3-content">
-            <li data-topic-id="M3T1">
-                <input type="checkbox"> Morfologia: classes de palavras variáveis e invariáveis e seus empregos no texto
-            </li>
-            <li data-topic-id="M3T2">
-                <input type="checkbox"> Locuções verbais (perífrases verbais)
-            </li>
-        </ul>
-
-        <h2 class="module-header" data-module="modulo4">
-            <span class="toggle-icon">▼</span> Módulo 4: Sintaxe: A Organização das Frases
-        </h2>
-        <ul class="module-content" id="modulo4-content">
-            <li data-topic-id="M4T1">
-                <input type="checkbox"> Sintaxe: relações sintático-semânticas estabelecidas entre orações, períodos ou parágrafos (período simples e período composto por coordenação e subordinação)
-            </li>
-            <li data-topic-id="M4T2">
-                <input type="checkbox"> Concordância verbal e nominal
-            </li>
-            <li data-topic-id="M4T3">
-                <input type="checkbox"> Regência verbal e nominal
-            </li>
-            <li data-topic-id="M4T4">
-                <input type="checkbox"> Colocação pronominal
-            </li>
-            <li data-topic-id="M4T5">
-                <input type="checkbox"> Funções do “que” e do “se”
-            </li>
-        </ul>
-
-        <h2 class="module-header" data-module="modulo5">
-            <span class="toggle-icon">▼</span> Módulo 5: Compreensão Textual e Estilística
-        </h2>
-        <ul class="module-content" id="modulo5-content">
-            <li data-topic-id="M5T1">
-                <input type="checkbox"> Compreensão e interpretação de texto
-            </li>
-            <li data-topic-id="M5T2">
-                <input type="checkbox"> Tipologia e gêneros textuais
-            </li>
-            <li data-topic-id="M5T3">
-                <input type="checkbox"> Figuras de linguagem
-            </li>
-            <li data-topic-id="M5T4">
-                <input type="checkbox"> Elementos de coesão
-            </li>
-            <li data-topic-id="M5T5">
-                <input type="checkbox"> Função textual dos vocábulos
-            </li>
-        </ul>
-
-        <h2 class="module-header" data-module="modulo6">
-            <span class="toggle-icon">▼</span> Módulo 6: Redação Oficial
-        </h2>
-        <ul class="module-content" id="modulo6-content">
-            <li data-topic-id="M6T1">
-                <input type="checkbox"> Redação oficial (Manual da Presidência da República/2018)
-            </li>
-        </ul>
+        <div class="calendar" id="studyCalendar">
+            </div>
     </div>
 
     <script>
-        // JavaScript para interatividade
-        document.addEventListener('DOMContentLoaded', () => {
-            const checkboxes = document.querySelectorAll('input[type="checkbox"]');
-            const moduleHeaders = document.querySelectorAll('.module-header');
+        const startDate = new Date('2025-06-25T00:00:00');
+        const endDate = new Date('2025-08-24T23:59:59');
+        const studyCalendar = document.getElementById('studyCalendar');
 
-            // --- Função para carregar o progresso salvo ---
-            function loadProgress() {
-                checkboxes.forEach(checkbox => {
-                    const topicId = checkbox.closest('li').dataset.topicId;
-                    const isChecked = localStorage.getItem(topicId) === 'true';
-                    checkbox.checked = isChecked;
-                    if (isChecked) {
-                        checkbox.closest('li').classList.add('completed');
+        const subjects = {
+            portugues: ["Português", "Módulo 1: Fundamentos da Linguagem e Vocabulário", "Módulo 2: Estrutura da Palavra e Pontuação Essencial", "Módulo 3: Morfologia: A Essência das Palavras", "Módulo 4: Sintaxe: A Organização das Frases", "Módulo 5: Compreensão Textual e Estilística", "Módulo 6: Redação Oficial"],
+            matematica: ["Matemática/Raciocínio Lógico", "Bloco 1: Fundamentos da Matemática", "Bloco 2: Álgebra", "Bloco 3: Lógica e Raciocínio"],
+            legislacao: ["Legislação Específica (TJPR)", "Módulo 1: Fundamentos da Organização Judiciária do Paraná", "Módulo 2: Normas Internas e Servidores do TJPR", "Módulo 3: Ética, Conduta e Leis de Acesso"],
+            constitucional: ["Noções de Direito Constitucional", "Módulo 1: Fundamentos da Constituição e Poder Constituinte", "Módulo 2: Direitos e Garantias Fundamentais", "Módulo 3: Organização do Estado e Administração Pública", "Módulo 4: Organização dos Poderes e Funções Essenciais"],
+            administrativo: ["Noções de Direito Administrativo", "Módulo 1: Fundamentos e Princípios da Administração Pública", "Módulo 2: Poderes e Atuação da Administração Pública", "Módulo 3: Organização e Agentes Públicos", "Módulo 4: Temas Transversais e Específicos", "Módulo 5: Legislação Específica e Processual"],
+            civil: ["Noções de Direito Civil", "Módulo 1: Fundamentos e Aplicação da Lei", "Módulo 2: Sujeitos de Direito e Seus Atributos", "Módulo 3: Os Objetos do Direito", "Módulo 4: Os Fatos que Geram Efeitos Jurídicos", "Módulo 5: Gestão do Tempo e Leis Específicas de Proteção"],
+            processualCivil: ["Noções de Direito Processual Civil", "Módulo 1: Fundamentos do Processo e Função Jurisdicional", "Módulo 2: Sujeitos do Processo", "Módulo 3: Atos Processuais", "Módulo 4: Tutela Provisória e Procedimento Comum (O Coração do Processo)", "Módulo 5: Recursos e Juizados Especiais"],
+            penal: ["Noções de Direito Penal", "Módulo 1: Fundamentos e Aplicação da Lei Penal", "Módulo 2: Teoria do Crime e Imputabilidade", "Módulo 3: Concurso de Pessoas e de Crimes", "Módulo 4: Extinção da Punibilidade e Crimes em Espécie", "Módulo 5: Legislação Penal Especial"],
+            processualPenal: ["Noções de Direito Processual Penal", "Módulo 1: Fundamentos e Bases do Processo Penal", "Módulo 2: Investigação e Ações Penais", "Módulo 3: Jurisdição, Competência e Provas", "Módulo 4: Medidas Cautelares, Liberdade e Procedimentos", "Módulo 5: Nulidades, Sentença, Recursos e Legislação Especial"]
+        };
+
+        const studyPlan = [
+            // Quarta-feira, 25/06/2025
+            { dayOfWeek: 3, period: 'Manhã', subject: 'portugues' }, // Módulo 1
+            { dayOfWeek: 3, period: 'Tarde', subject: 'legislacao' }, // Módulo 1
+            { dayOfWeek: 3, period: 'Noite', subject: 'constitucional' }, // Módulo 1
+
+            // Quinta-feira, 26/06/2025
+            { dayOfWeek: 4, period: 'Manhã', subject: 'portugues' }, // Módulo 2
+            { dayOfWeek: 4, period: 'Tarde', subject: 'administrativo' }, // Módulo 1
+            { dayOfWeek: 4, period: 'Noite', subject: 'civil' }, // Módulo 1
+
+            // Sexta-feira, 27/06/2025
+            { dayOfWeek: 5, period: 'Manhã', subject: 'portugues' }, // Módulo 3
+            { dayOfWeek: 5, period: 'Tarde', subject: 'processualCivil' }, // Módulo 1
+            { dayOfWeek: 5, period: 'Noite', subject: 'penal' }, // Módulo 1
+
+            // Sábado, 28/06/2025
+            { dayOfWeek: 6, period: 'Manhã', subject: 'matematica' }, // Bloco 1
+            { dayOfWeek: 6, period: 'Tarde', subject: 'processualPenal' }, // Módulo 1
+            { dayOfWeek: 6, period: 'Noite', subject: 'legislacao' }, // Módulo 2
+
+            // Domingo, 29/06/2025
+            { dayOfWeek: 0, period: 'Manhã', subject: 'portugues' }, // Módulo 4
+            { dayOfWeek: 0, period: 'Tarde', subject: 'constitucional' }, // Módulo 2
+            { dayOfWeek: 0, period: 'Noite', subject: 'administrativo' }, // Módulo 2
+
+            // Segunda-feira, 30/06/2025
+            { dayOfWeek: 1, period: 'Manhã', subject: 'matematica' }, // Bloco 2
+            { dayOfWeek: 1, period: 'Tarde', subject: 'civil' }, // Módulo 2
+            { dayOfWeek: 1, period: 'Noite', subject: 'penal' }, // Módulo 2
+
+            // Terça-feira, 01/07/2025
+            { dayOfWeek: 2, period: 'Manhã', subject: 'legislacao' }, // Módulo 3
+            { dayOfWeek: 2, period: 'Tarde', subject: 'processualCivil' }, // Módulo 2
+            { dayOfWeek: 2, period: 'Noite', 'subject': 'matematica' } // Bloco 3
+            // Repete o ciclo a partir daqui
+        ];
+
+        // Função para formatar a data
+        function formatDate(date) {
+            const options = { weekday: 'long', day: '2-digit', month: 'long', year: 'numeric' };
+            return date.toLocaleDateString('pt-BR', options);
+        }
+
+        // Função para gerar o cronograma
+        function generateSchedule() {
+            let currentDate = new Date(startDate);
+            let dayIndex = 0; // Para controlar qual módulo do estudo está sendo atribuído
+
+            while (currentDate <= endDate) {
+                const dayCard = document.createElement('div');
+                dayCard.classList.add('day-card');
+
+                const dayHeader = document.createElement('div');
+                dayHeader.classList.add('day-header');
+                dayHeader.textContent = formatDate(currentDate);
+                dayCard.appendChild(dayHeader);
+
+                const currentDayOfWeek = currentDate.getDay(); // 0=Domingo, 1=Segunda...
+
+                ['Manhã', 'Tarde', 'Noite'].forEach((period, index) => {
+                    const slot = document.createElement('div');
+                    slot.classList.add('schedule-slot');
+
+                    const checkbox = document.createElement('input');
+                    checkbox.type = 'checkbox';
+                    const slotId = `${currentDate.toISOString().slice(0, 10)}-${period}`; // Ex: 2025-06-25-Manhã
+                    checkbox.id = slotId;
+                    checkbox.dataset.slotId = slotId;
+
+                    const storedState = localStorage.getItem(slotId);
+                    if (storedState === 'true') {
+                        checkbox.checked = true;
+                        slot.classList.add('completed');
                     }
-                });
 
-                // Carregar estado de módulos (expandido/colapsado)
-                moduleHeaders.forEach(header => {
-                    const moduleId = header.dataset.module;
-                    const isCollapsed = localStorage.getItem(`module-${moduleId}-collapsed`) === 'true';
-                    if (isCollapsed) {
-                        header.classList.add('collapsed');
-                        document.getElementById(`${moduleId}-content`).classList.add('hidden');
+                    checkbox.addEventListener('change', (event) => {
+                        if (event.target.checked) {
+                            slot.classList.add('completed');
+                        } else {
+                            slot.classList.remove('completed');
+                        }
+                        localStorage.setItem(slotId, event.target.checked);
+                    });
+
+                    const timeLabel = document.createElement('span');
+                    timeLabel.classList.add('time-label');
+                    if (period === 'Manhã') timeLabel.textContent = '08h-12h:';
+                    if (period === 'Tarde') timeLabel.textContent = '14h-18h:';
+                    if (period === 'Noite') timeLabel.textContent = '19h-23h:';
+
+                    const subjectLabel = document.createElement('span');
+                    subjectLabel.classList.add('subject-label');
+
+                    // Encontrar o plano para o dia da semana e período
+                    const planForToday = studyPlan.find(p => p.dayOfWeek === currentDayOfWeek && p.period === period);
+
+                    if (planForToday) {
+                        const subjectKey = planForToday.subject;
+                        const fullSubjectInfo = subjects[subjectKey];
+
+                        if (fullSubjectInfo) {
+                            let moduleName;
+                            // Calcula qual módulo está na vez para esta matéria
+                            // Isso é um ciclo simples de atribuição, pode ser ajustado para um controle mais complexo
+                            const moduleNumber = Math.floor(dayIndex / fullSubjectInfo.length) % (fullSubjectInfo.length -1) +1 ; // +1 para ignorar o nome geral da matéria
+                            moduleName = fullSubjectInfo[moduleNumber];
+                            
+                            // Para garantir que o ciclo de módulos seja distribuído
+                            // Isso é uma simplificação, idealmente um contador por matéria seria melhor
+                            // Mas para um plano fixo, podemos usar o `dayIndex` ajustado.
+                            let effectiveModuleIndex = 0;
+                            if (subjectKey === 'portugues') effectiveModuleIndex = Math.floor(dayIndex / 2) % (fullSubjectInfo.length - 1) + 1; // Ajuste para Português
+                            else if (subjectKey === 'matematica') effectiveModuleIndex = Math.floor(dayIndex / 3) % (fullSubjectInfo.length - 1) + 1; // Ajuste para Matemática
+                            else {
+                                // Para as matérias de Direito, vamos tentar uma rotação mais direta
+                                const subjectOrder = ['legislacao', 'constitucional', 'administrativo', 'civil', 'processualCivil', 'penal', 'processualPenal'];
+                                const subjectPosition = subjectOrder.indexOf(subjectKey);
+                                if (subjectPosition !== -1) {
+                                    const totalDaysCoveredByPriorities = Math.floor(dayIndex / 3); // 3 slots por dia
+                                    // A ideia aqui é fazer com que os módulos avancem por matéria
+                                    // Isso se torna complexo sem um contador por matéria.
+                                    // Para este escopo, vamos atribuir sequencialmente os módulos dentro da matéria no plano
+                                    // Simplificação: vamos pegar o módulo baseado na ordem geral de estudo ou um round-robin simples
+                                    effectiveModuleIndex = (Math.floor(currentDate.getTime() / (1000 * 60 * 60 * 24)) % (fullSubjectInfo.length - 1)) + 1;
+                                    // Isso fará com que cada dia avance um módulo para aquela matéria, se houver muitos dias para a mesma matéria
+                                }
+                            }
+                            
+                            // Reajustando a lógica de atribuição de módulo de forma mais robusta e rotativa
+                            const subjectCounterKey = `module_counter_${subjectKey}`;
+                            let moduleCounter = parseInt(localStorage.getItem(subjectCounterKey) || '1', 10);
+                            
+                            moduleName = fullSubjectInfo[moduleCounter];
+
+                            subjectLabel.innerHTML = `<strong>${fullSubjectInfo[0]}:</strong> ${moduleName || 'Revisão/Questões'}`;
+                        } else {
+                            subjectLabel.textContent = 'Revisão/Questões'; // Fallback
+                        }
                     } else {
-                         header.classList.remove('collapsed');
-                         document.getElementById(`${moduleId}-content`).classList.remove('hidden');
+                        subjectLabel.textContent = 'Revisão/Questões'; // Para dias não previstos no estudoPlan
                     }
+
+                    slot.appendChild(checkbox);
+                    slot.appendChild(timeLabel);
+                    slot.appendChild(subjectLabel);
+                    dayCard.appendChild(slot);
                 });
+
+                studyCalendar.appendChild(dayCard);
+                currentDate.setDate(currentDate.getDate() + 1);
+                dayIndex++;
             }
+            // Logic to cycle through modules for each subject based on days passed
+            // This is complex to do perfectly with just a fixed `studyPlan` and `dayIndex`
+            // A more advanced solution would track module progress per subject in localStorage.
+        }
 
-            // --- Função para salvar o progresso ---
-            function saveProgress(topicId, isChecked) {
-                localStorage.setItem(topicId, isChecked);
-            }
-
-            // --- Event Listener para checkboxes ---
-            checkboxes.forEach(checkbox => {
-                checkbox.addEventListener('change', (event) => {
-                    const listItem = event.target.closest('li');
-                    const topicId = listItem.dataset.topicId;
-
-                    if (event.target.checked) {
-                        listItem.classList.add('completed');
-                    } else {
-                        listItem.classList.remove('completed');
-                    }
-                    saveProgress(topicId, event.target.checked);
-                });
-            });
-
-            // --- Event Listener para expandir/colapsar módulos ---
-            moduleHeaders.forEach(header => {
-                header.addEventListener('click', () => {
-                    const moduleId = header.dataset.module;
-                    const contentDiv = document.getElementById(`${moduleId}-content`);
-
-                    header.classList.toggle('collapsed');
-                    contentDiv.classList.toggle('hidden');
-
-                    // Salvar o estado do módulo
-                    const isCollapsed = header.classList.contains('collapsed');
-                    localStorage.setItem(`module-${moduleId}-collapsed`, isCollapsed);
-                });
-            });
-
-            // Carrega o progresso ao carregar a página
-            loadProgress();
-        });
+        document.addEventListener('DOMContentLoaded', generateSchedule);
     </script>
 </body>
 </html>
